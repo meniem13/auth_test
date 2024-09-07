@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
+
   final IconData? icon;
   final TextEditingController? controller;
-  final bool obscureText; // Rename this to reflect its purpose
+  final bool? obscureText; // Rename this to reflect its purpose
+  bool pdBool; // Rename this to reflect its purpose
 
-  const CustomTextField({
+  CustomTextField({
     Key? key,
     required this.hintText,
     this.icon,
     this.controller,
-    required this.obscureText,
+    this.obscureText,
     TextInputType? keyboardType,
     Null Function(dynamic value)? method,
-    String? initialValue, // Use this to control obscureText
+    String? initialValue,
+    required this.pdBool, // Use this to control obscureText
   }) : super(key: key);
 
   @override
@@ -48,7 +51,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: mq.size.width * 0.05),
       child: TextField(
-        obscureText: widget.obscureText, // Use widget.obscureText here
+        obscureText:
+            widget.pdBool && widget.obscureText!, // Use widget.obscureText here
         focusNode: _focusNode,
         controller: widget.controller,
         decoration: InputDecoration(
@@ -65,14 +69,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
           hintStyle: TextStyle(color: Colors.grey[500]),
           prefixIcon: Icon(widget.icon),
           suffixIcon: widget
-                  .obscureText // Use widget.obscureText to conditionally show the visibility toggle
+                  .obscureText! // Use widget.obscureText to conditionally show the visibility toggle
               ? IconButton(
                   icon: Icon(
-                    _isFocused ? Icons.visibility_off : Icons.visibility,
+                    widget.pdBool ? Icons.visibility_off : Icons.visibility,
                   ),
                   onPressed: () {
                     setState(() {
-                      _isFocused = !_isFocused;
+                      widget.pdBool = !widget.pdBool;
                     });
                   },
                 )

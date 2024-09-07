@@ -102,6 +102,7 @@ class _SignUpState extends State<SignUp> {
                 height: 50,
               ),
               CustomTextField(
+                pdBool: false,
                 hintText: 'enter your email',
                 icon: Icons.email,
                 controller: emailController,
@@ -111,6 +112,7 @@ class _SignUpState extends State<SignUp> {
                 height: 25,
               ),
               CustomTextField(
+                pdBool: true,
                 hintText: 'enter your password',
                 icon: Icons.lock,
                 controller: passwordController,
